@@ -74,13 +74,23 @@ public class ModelJogo {
 		this.campo[linha][coluna] = jogador;
 	}
 	
-	public void setResultado(int resultado) {
-		this.resultado = resultado;
-	}
-
 	public int getResultado() {
 		resultadoJogo();
 		return resultado;
+	}
+	
+	public void atualizarResultado() {
+		if(resultado == 1) {
+			setQuantVitoriaX(getQuantVitoriaX() + 1);
+		}
+		
+		if(resultado == 2) {
+			setQuantVitoriaO(getQuantVitoriaO() + 1);
+		}
+		
+		if(resultado == 0) {
+			setQuantEmpates(getQuantEmpates() + 1);
+		}
 	}
 	
 	/** @note O zero(0) é retornado quando dar empate*/

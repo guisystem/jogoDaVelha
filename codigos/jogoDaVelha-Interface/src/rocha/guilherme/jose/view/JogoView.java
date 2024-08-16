@@ -16,11 +16,15 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+
+import rocha.guilherme.jose.controller.JogoController;
 
 @SuppressWarnings("serial")
 public class JogoView extends JFrame {
@@ -39,6 +43,7 @@ public class JogoView extends JFrame {
 	private JTextField textFieldVitoriasDois;
 	private JTextField textFieldEmpates;
 	
+	private JogoController controller;
 	private JButton btnNovoJogo;
 	private JButton btnSobreOJogo;
 	private JButton btnSair;
@@ -67,8 +72,8 @@ public class JogoView extends JFrame {
     public void paint(Graphics g) {
         super.paint(g);
         Graphics2D g2d = (Graphics2D) g;
-
         g2d.setColor(Color.WHITE);
+
         g2d.drawLine(191, 91, 191, 471);
         g2d.drawLine(325, 91, 325, 471);
         g2d.drawLine(68, 214, 448, 214);
@@ -85,6 +90,8 @@ public class JogoView extends JFrame {
 	 * Create the frame.
 	 */
 	public JogoView() {
+		controller = new JogoController(this);
+		
 		setTitle("Jogo da Velha");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(JogoView.class.getResource("/rocha/guilherme/jose/view/icones/icone-jogoDaVelha.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,7 +112,7 @@ public class JogoView extends JFrame {
 		btnZeroZero = new JButton("");
 		btnZeroZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(0, 0, btnZeroZero);
 			}
 		});
 		btnZeroZero.setContentAreaFilled(false);
@@ -117,7 +124,7 @@ public class JogoView extends JFrame {
 		btnZeroUm = new JButton("");
 		btnZeroUm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(0, 1, btnZeroUm);
 			}
 		});
 		btnZeroUm.setContentAreaFilled(false);
@@ -129,7 +136,7 @@ public class JogoView extends JFrame {
 		btnZeroDois = new JButton("");
 		btnZeroDois.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(0, 2, btnZeroDois);
 			}
 		});
 		btnZeroDois.setContentAreaFilled(false);
@@ -141,7 +148,7 @@ public class JogoView extends JFrame {
 		btnUmZero = new JButton("");
 		btnUmZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(1, 0, btnUmZero);
 			}
 		});
 		btnUmZero.setContentAreaFilled(false);
@@ -153,7 +160,7 @@ public class JogoView extends JFrame {
 		btnDoisZero = new JButton("");
 		btnDoisZero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(2, 0, btnDoisZero);
 			}
 		});
 		btnDoisZero.setContentAreaFilled(false);
@@ -165,7 +172,7 @@ public class JogoView extends JFrame {
 		btnDoisDois = new JButton("");
 		btnDoisDois.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(2, 2, btnDoisDois);
 			}
 		});
 		btnDoisDois.setContentAreaFilled(false);
@@ -177,7 +184,7 @@ public class JogoView extends JFrame {
 		btnUmUm = new JButton("");
 		btnUmUm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(1, 1, btnUmUm);
 			}
 		});
 		btnUmUm.setContentAreaFilled(false);
@@ -189,7 +196,7 @@ public class JogoView extends JFrame {
 		btnUmDois = new JButton("");
 		btnUmDois.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(1, 2, btnUmDois);
 			}
 		});
 		btnUmDois.setContentAreaFilled(false);
@@ -201,7 +208,7 @@ public class JogoView extends JFrame {
 		btnDoisUm = new JButton("");
 		btnDoisUm.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.verificarCampo(2, 1, btnDoisUm);
 			}
 		});
 		btnDoisUm.setContentAreaFilled(false);
@@ -272,7 +279,7 @@ public class JogoView extends JFrame {
 		});
 		btnNovoJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.iniciarJogo();
 			}
 		});
 		btnNovoJogo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -375,6 +382,8 @@ public class JogoView extends JFrame {
 		textFieldEmpates.setBounds(708, 280, 58, 20);
 		contentPane.add(textFieldEmpates);
 		
+		iniciar();
+		
 	}
 
 	protected void estiloMouseEnter(JButton botao) {
@@ -388,6 +397,23 @@ public class JogoView extends JFrame {
 		botao.setForeground(Color.WHITE);
 		botao.setBackground(Color.decode("#E100FF"));
 		botao.setBorder(new LineBorder(Color.WHITE));
+	}
+
+	private void iniciar() {
+		controller.iniciarJogo();
+	}
+	
+	public void exibirResultado(String mensagem) {
+		ImageIcon iconeResultado = new ImageIcon(JogoView.class.getResource("/rocha/guilherme/jose/view/icones/icone-jogoDaVelha.png"));
+		
+		UIManager.put("OptionPane.messageFont", new Font("Arial", Font.BOLD, 16));
+		UIManager.put("Panel.background", Color.decode("#7F00FF"));
+		UIManager.put("OptionPane.background", Color.decode("#7F00FF"));
+		UIManager.put("OptionPane.messageForeground", Color.WHITE);
+		UIManager.put("Button.background", Color.decode("#8E2DE2"));
+		UIManager.put("Button.foreground", Color.WHITE);
+
+	   JOptionPane.showMessageDialog(null, mensagem, "Resultado", JOptionPane.INFORMATION_MESSAGE, iconeResultado);
 	}
 	
 	public JButton getBtnZeroZero() {
@@ -485,7 +511,7 @@ public class JogoView extends JFrame {
 	public void setTextFieldEmpates(JTextField textFieldEmpates) {
 		this.textFieldEmpates = textFieldEmpates;
 	}
-
+	
 	public JPanel getPainelJogo() {
 		return painelJogo;
 	}
