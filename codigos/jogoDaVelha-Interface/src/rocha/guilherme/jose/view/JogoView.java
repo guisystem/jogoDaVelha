@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -48,6 +49,8 @@ public class JogoView extends JFrame {
 	private JButton btnSobreOJogo;
 	private JButton btnSair;
 	
+	private Image cursorImage = null;
+	private Cursor customCursor = null;
 	private JPanel painelJogo;
 
 	/**
@@ -71,9 +74,9 @@ public class JogoView extends JFrame {
 	@Override
     public void paint(Graphics g) {
         super.paint(g);
+
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.WHITE);
-
         g2d.drawLine(191, 91, 191, 471);
         g2d.drawLine(325, 91, 325, 471);
         g2d.drawLine(68, 214, 448, 214);
@@ -401,6 +404,7 @@ public class JogoView extends JFrame {
 
 	private void iniciar() {
 		controller.iniciarJogo();
+		controller.cursorInicial();
 	}
 	
 	public void exibirResultado(String mensagem) {
@@ -512,6 +516,22 @@ public class JogoView extends JFrame {
 		this.textFieldEmpates = textFieldEmpates;
 	}
 	
+	public Image getCursorImage() {
+		return cursorImage;
+	}
+
+	public void setCursorImage(Image cursorImage) {
+		this.cursorImage = cursorImage;
+	}
+
+	public Cursor getCustomCursor() {
+		return customCursor;
+	}
+
+	public void setCustomCursor(Cursor customCursor) {
+		this.customCursor = customCursor;
+	}
+
 	public JPanel getPainelJogo() {
 		return painelJogo;
 	}
