@@ -5,6 +5,7 @@ import javax.swing.JButton;
 import rocha.guilherme.jose.controller.helper.JogoHelper;
 import rocha.guilherme.jose.model.ModelJogo;
 import rocha.guilherme.jose.view.JogoView;
+import rocha.guilherme.jose.view.SobreOJogoView;
 
 public class JogoController {
 
@@ -55,6 +56,18 @@ public class JogoController {
 
 			helper.atualizarPlacar(jogo);
 		}
+	}
+	
+	public void abrirJanelaSobre() {
+		SobreOJogoView sobre = new SobreOJogoView();
+		sobre.setLocationRelativeTo(null);
+		sobre.setResizable(false);
+		sobre.setVisible(true);
+		
+	}
+
+	public void sair() {
+	    System.exit(0);
 	}
 	
 }

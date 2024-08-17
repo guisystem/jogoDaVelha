@@ -304,7 +304,7 @@ public class JogoView extends JFrame {
 		});
 		btnSobreOJogo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.abrirJanelaSobre();
 			}
 		});
 		btnSobreOJogo.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -329,7 +329,7 @@ public class JogoView extends JFrame {
 		});
 		btnSair.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				controller.sair();
 			}
 		});
 		btnSair.setCursor(new Cursor(Cursor.HAND_CURSOR));
